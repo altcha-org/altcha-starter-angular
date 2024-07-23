@@ -162,6 +162,30 @@
     fill: var(--gray-900);
   }
 
+  form {
+    border: 2px solid #ddd;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: start;
+    padding: 1rem;
+    margin-top: 2rem;
+  }
+
+  fieldset {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: stretch;
+    padding: 0;
+    width: 100%;
+  }
+
+  fieldset label {
+    text-align: left;
+  }
+
   @media screen and (max-width: 650px) {
     .content {
       flex-direction: column;
@@ -227,6 +251,29 @@
       </svg>
       <h1>Hello, {{ title }}</h1>
       <p>Congratulations! Your app is running. 🎉</p>
+
+      <form action="#">
+        <fieldset>
+          <label>Name:</label>
+          <input type="text" name="name" />
+        </fieldset>
+
+        <fieldset>
+          <label>Message:</label>
+          <textarea name="message"></textarea>
+        </fieldset>
+
+        <fieldset>
+          <altcha-widget
+            style="--altcha-max-width:100%"
+            debug
+            test
+          ></altcha-widget>
+        </fieldset>
+
+        <button type="submit">Submit</button>
+      </form>
+
     </div>
     <div class="divider" role="separator" aria-label="Divider"></div>
     <div class="right-side">
