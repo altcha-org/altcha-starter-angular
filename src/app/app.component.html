@@ -252,26 +252,22 @@
       <h1>Hello, {{ title }}</h1>
       <p>Congratulations! Your app is running. 🎉</p>
 
-      <form action="#">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <fieldset>
           <label>Name:</label>
-          <input type="text" name="name" />
+          <input type="text" name="name" required formControlName="name" />
         </fieldset>
 
         <fieldset>
           <label>Message:</label>
-          <textarea name="message"></textarea>
+          <textarea name="message" required formControlName="message"></textarea>
         </fieldset>
 
         <fieldset>
-          <altcha-widget
-            style="--altcha-max-width:100%"
-            debug
-            test
-          ></altcha-widget>
+          <app-altcha formControlName="altcha" />
         </fieldset>
 
-        <button type="submit">Submit</button>
+        <button type="submit" [disabled]="form.invalid">Submit</button>
       </form>
 
     </div>

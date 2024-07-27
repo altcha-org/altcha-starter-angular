@@ -84,6 +84,10 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 })
 ```
 
+## Reactive Forms
+
+The example component [`app-altcha`](/src/app/altcha) can be used in reactive forms as a required form control. The value of the form control will be the ALTCHA payload. This setup allows you to easily integrate the ALTCHA component into your forms, ensuring that it participates in form validation and submission just like any other form control.
+
 ## Additional Configuration
 
 Ensure your `challengeurl` points to the endpoint where ALTCHA's proof-of-work challenge is processed. Customize the component attributes as needed based on your specific use case.
