@@ -1,5 +1,5 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, ViewChild, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, ViewChild, forwardRef, AfterViewInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, Validator, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-altcha',
@@ -20,12 +20,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, Validator, Abst
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AltchaComponent implements ControlValueAccessor, Validator {
+export class AltchaComponent implements ControlValueAccessor, Validator, AfterViewInit {
   @ViewChild('altchaWidget', { static: true }) altchaWidget!: ElementRef;
 
-  value: string = '';
-  onChange: any = () => {};
-  onTouched: any = () => {};
+  value = '';
+  onChange: CallableFunction = () => undefined;
+  onTouched: CallableFunction = () => undefined;
 
   ngAfterViewInit(): void {
     const el = this.altchaWidget.nativeElement as HTMLElement;
@@ -38,26 +38,26 @@ export class AltchaComponent implements ControlValueAccessor, Validator {
     });
   }
 
-  writeValue(value: any): void {
+  writeValue(value: string): void {
     this.value = value;
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: CallableFunction): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: CallableFunction): void {
     this.onTouched = fn;
   }
 
-  validate(control: AbstractControl): ValidationErrors | null {
+  validate(): ValidationErrors | null {
     if (!this.value) {
       return { required: true };
     }
     return null;
   }
 
-  onStateChange(state: 'unverified' | 'verifying' | 'verified' | 'error', payload: string = '') {
+  onStateChange(state: 'unverified' | 'verifying' | 'verified' | 'error', payload = '') {
     this.value = state === 'verified' ? payload : '';
     this.onChange(this.value);
     this.onTouched();

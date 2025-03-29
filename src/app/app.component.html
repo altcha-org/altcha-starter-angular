@@ -254,13 +254,13 @@
 
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <fieldset>
-          <label>Name:</label>
-          <input type="text" name="name" required formControlName="name" />
+          <label for="name">Name:</label>
+          <input type="text" name="name" id="name" required formControlName="name" />
         </fieldset>
 
         <fieldset>
-          <label>Message:</label>
-          <textarea name="message" required formControlName="message"></textarea>
+          <label for="message">Message:</label>
+          <textarea name="message" id="message" required formControlName="message"></textarea>
         </fieldset>
 
         <fieldset>
