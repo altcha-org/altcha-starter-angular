@@ -1,6 +1,8 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, ViewChild, forwardRef, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, Validator, ValidationErrors } from '@angular/forms';
 
+import 'altcha';
+
 @Component({
   selector: 'app-altcha',
   standalone: true,
