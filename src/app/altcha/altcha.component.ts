@@ -2,6 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, ViewChild, forwardRef, A
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, Validator, ValidationErrors } from '@angular/forms';
 
 import 'altcha';
+import type { WidgetAttributes, WidgetMethods } from 'altcha/types';
 
 @Component({
   selector: 'app-altcha',
@@ -30,13 +31,20 @@ export class AltchaComponent implements ControlValueAccessor, Validator, AfterVi
   onTouched: CallableFunction = () => undefined;
 
   ngAfterViewInit(): void {
-    const el = this.altchaWidget.nativeElement as HTMLElement;
-    el.addEventListener('statechange', (ev) => {
-      const { detail } = ev as CustomEvent;
-      if (detail) {
-        const { payload, state } = detail;
-        this.onStateChange(state, payload);
-      }
+    const el = this.altchaWidget.nativeElement as HTMLElement & WidgetAttributes & WidgetMethods;
+    // The `configure` method is available once the widget is instantiated
+    requestAnimationFrame(() => {
+      el.configure({
+        debug: true,
+        test: true,
+      });
+      el.addEventListener('statechange', (ev) => {
+        const { detail } = ev as CustomEvent;
+        if (detail) {
+          const { payload, state } = detail;
+          this.onStateChange(state, payload);
+        }
+      });
     });
   }
 

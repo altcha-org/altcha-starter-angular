@@ -64,7 +64,7 @@ import 'altcha';
 <!-- src/app/example/example.component.html -->
 <div>
   <h1>My Angular App with ALTCHA</h1>
-  <altcha-widget challengeurl="https://your-challenge-url.com"></altcha-widget>
+  <altcha-widget challenge="https://your-challenge-url.com"></altcha-widget>
 </div>
 ```
 
@@ -90,7 +90,7 @@ The example component [`app-altcha`](/src/app/altcha) can be used in reactive fo
 
 ## Additional Configuration
 
-Ensure your `challengeurl` points to the endpoint where ALTCHA's proof-of-work challenge is processed. Customize the component attributes as needed based on your specific use case.
+Ensure your `challenge` points to the endpoint where ALTCHA's proof-of-work challenge is processed. Customize the component attributes as needed based on your specific use case.
 
 ## Conclusion
 
