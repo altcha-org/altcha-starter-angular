@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, ViewChild, forwardRef, AfterViewInit } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, ViewChild, forwardRef, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, Validator, ValidationErrors } from '@angular/forms';
 
 import 'altcha';
@@ -21,6 +21,7 @@ import type { WidgetAttributes, WidgetMethods } from 'altcha/types';
       multi: true
     }
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AltchaComponent implements ControlValueAccessor, Validator, AfterViewInit {
@@ -37,13 +38,6 @@ export class AltchaComponent implements ControlValueAccessor, Validator, AfterVi
       el.configure({
         debug: true,
         test: true,
-      });
-      el.addEventListener('statechange', (ev) => {
-        const { detail } = ev as CustomEvent;
-        if (detail) {
-          const { payload, state } = detail;
-          this.onStateChange(state, payload);
-        }
       });
     });
   }
@@ -67,7 +61,12 @@ export class AltchaComponent implements ControlValueAccessor, Validator, AfterVi
     return null;
   }
 
-  onStateChange(state: 'unverified' | 'verifying' | 'verified' | 'error', payload = '') {
+  onStateChange(ev: Event) {
+    const { detail } = ev as CustomEvent<{ state: 'unverified' | 'verifying' | 'verified' | 'error'; payload?: string }>;
+    if (!detail) {
+      return;
+    }
+    const { payload = '', state } = detail;
     this.value = state === 'verified' ? payload : '';
     this.onChange(this.value);
     this.onTouched();

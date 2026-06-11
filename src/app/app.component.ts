@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AltchaComponent } from "./altcha/altcha.component";
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -7,6 +7,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
     selector: 'app-root',
     imports: [RouterOutlet, ReactiveFormsModule, AltchaComponent],
     templateUrl: './app.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrl: './app.component.css'
 })
 export class AppComponent {
